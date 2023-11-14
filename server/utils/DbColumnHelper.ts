@@ -19,3 +19,17 @@ export function DbAwareColumn(columnOptions: ColumnOptions) {
   }
   return Column(columnOptions);
 }
+
+export const getDbSyntaxMap = () => {
+  if (isPgsql) {
+    return {
+      AUTOINCREMENT: 'SERIAL PRIMARY KEY',
+      DATETIME: 'timestamp',
+    };
+  } else {
+    return {
+      AUTOINCREMENT: 'integer PRIMARY KEY AUTOINCREMENT',
+      DATETIME: 'datetime',
+    };
+  }
+};
