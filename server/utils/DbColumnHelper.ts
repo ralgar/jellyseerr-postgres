@@ -25,11 +25,13 @@ export const getDbSyntaxMap = () => {
     return {
       AUTOINCREMENT: 'SERIAL PRIMARY KEY',
       DATETIME: 'timestamp',
+      DATETIME_CURRENT: 'current_timestamp',
     };
   } else {
     return {
       AUTOINCREMENT: 'integer PRIMARY KEY AUTOINCREMENT',
       DATETIME: 'datetime',
+      DATETIME_CURRENT: '(datetime(\'now\'))',
     };
   }
 };
