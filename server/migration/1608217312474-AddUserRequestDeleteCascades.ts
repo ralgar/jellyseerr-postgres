@@ -1,5 +1,5 @@
-import type { MigrationInterface, QueryRunner } from 'typeorm';
 import { getDbSyntaxMap } from '@server/utils/DbColumnHelper';
+import type { MigrationInterface, QueryRunner } from 'typeorm';
 
 const dbSyntaxMap = getDbSyntaxMap();
 

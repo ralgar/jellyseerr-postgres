@@ -51,18 +51,13 @@ app
     // Run migrations in production
     if (process.env.NODE_ENV === 'production') {
       if (isPgsql) {
-        // Disable foreign key constraints in PostgreSQL
-        await dbConnection.query('SET session_replication_role = replica');
         await dbConnection.runMigrations();
-        // Enable foreign key constraints in PostgreSQL
-        await dbConnection.query('SET session_replication_role = DEFAULT');
       } else {
         await dbConnection.query('PRAGMA foreign_keys=OFF');
         await dbConnection.runMigrations();
         await dbConnection.query('PRAGMA foreign_keys=ON');
       }
     }
-
 
     // Load Settings
     const settings = getSettings().load();

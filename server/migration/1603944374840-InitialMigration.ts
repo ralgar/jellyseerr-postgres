@@ -1,5 +1,5 @@
-import type { MigrationInterface, QueryRunner } from 'typeorm';
 import { getDbSyntaxMap } from '@server/utils/DbColumnHelper';
+import type { MigrationInterface, QueryRunner } from 'typeorm';
 
 const dbSyntaxMap = getDbSyntaxMap();
 
@@ -50,7 +50,9 @@ export class InitialMigration1603944374840 implements MigrationInterface {
     await queryRunner.query(
       `INSERT INTO "temporary_media_request"("id", "status", "createdAt", "updatedAt", "type", "mediaId", "requestedById", "modifiedById") SELECT "id", "status", "createdAt", "updatedAt", "type", "mediaId", "requestedById", "modifiedById" FROM "media_request"`
     );
-    await queryRunner.query(`DROP TABLE "media_request"`);
+    await queryRunner.query(
+      `DROP TABLE "media_request" ${dbSyntaxMap.CASCADE}`
+    );
     await queryRunner.query(
       `ALTER TABLE "temporary_media_request" RENAME TO "media_request"`
     );
